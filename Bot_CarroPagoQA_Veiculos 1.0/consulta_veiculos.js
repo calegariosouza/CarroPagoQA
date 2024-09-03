@@ -5,31 +5,16 @@ function getCurrentTime() {
     return now.toLocaleTimeString('pt-BR', { hour12: false });
 }
 
-function scheduleScript(startTime) {
-    const now = new Date();
-    const targetTime = new Date(now.toDateString() + ' ' + startTime);
-    
-    if (targetTime < now) {
-        // Se a hora agendada já passou hoje, agende para o mesmo horário no próximo dia
-        targetTime.setDate(targetTime.getDate() + 1);
-    }
+(async () => {
+    // Inicia o navegador
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
 
-    const delay = targetTime - now;
-
-    console.log(`[${getCurrentTime()}] Script agendado para rodar às ${startTime}. Vai começar em ${(delay / 1000 / 60).toFixed(2)} minutos.`);
-
-    setTimeout(async () => {
-        console.log(`[${getCurrentTime()}] Iniciando o script...`);
-
-        // Inicia o navegador
-        const browser = await puppeteer.launch({ headless: false });
-        const page = await browser.newPage();
-
-        await page.setViewport({
-            width: 900,
-            height: 900,
-            deviceScaleFactor: 1, // Ajusta o fator de escala de dispositivo, pode ser aumentado para melhorar a densidade de pixels.
-        });
+    await page.setViewport({
+        width: 900,
+        height: 900,
+        deviceScaleFactor: 1,
+    });
     //------------------------------------------------------------------------------------
 
     // Acessa o WhatsApp Web
@@ -421,11 +406,12 @@ function scheduleScript(startTime) {
         await new Promise(resolve => setTimeout(resolve, 90000));
         console.log(`[${getCurrentTime()}] Fim da consulta de CNPJ`);
 
+        const newPage = await browser.newPage();
+        await newPage.goto('https://api2-dev.cpops.com.br/attendances/resume');
 
-    // Fechar o navegador após a automação
-    await browser.close();
-}, delay);
-}
+
+        await browser.close();
+    })();
 
 // Define o horário em que o script deve começar (formato HH:MM:SS)
 const horarioDesejado = '16:18:00';

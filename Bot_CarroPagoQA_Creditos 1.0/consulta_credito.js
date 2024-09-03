@@ -115,6 +115,9 @@ function getCurrentTime() {
     await new Promise(resolve => setTimeout(resolve, 90000));
     console.log(`[${getCurrentTime()}] Fim da consulta de CNPJ`);
 
+    const newPage = await browser.newPage();
+    await newPage.goto('https://api2-dev.cpops.com.br/attendances/resume');
+
     // Fechar o navegador após a automação
     await browser.close();
 })();
