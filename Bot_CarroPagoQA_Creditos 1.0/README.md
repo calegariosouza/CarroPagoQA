@@ -1,8 +1,8 @@
-# Bot de Consulta de Veículos - Carro Pago
+# Bot de Consulta de Créditos - Carro Pago
 Este bot foi desenvolvido para realizar consultas de créditos no WhatsApp de forma automatizada, especificamente com o contato "Carro Pago QA". Ele oferece suporte para dois tipos de consultas:
 
-Consulta de Básica: Retornar informações básicas de um veículo.
-Consulta de Completa: Retornar informações completas de um veículo.
+Consulta de CPF: Verifica o status de créditos vinculados a um CPF.
+Consulta de CNPJ: Verifica o status de créditos vinculados a um CNPJ.
 
 # Como Funciona
 Conexão com o WhatsApp:
@@ -23,7 +23,7 @@ Para rodar o bot, é necessário ter o Node.js instalado em sua máquina.
 2. Navegue até o diretório onde o arquivo do bot está localizado.
 
 3. Execute o seguinte comando no terminal:
-    "consulta_veiculos.js"
+    "consulta_credito.js"
 
 4. Ao executar o comando, um QR Code será exibido no terminal. Escaneie o QR Code com o aplicativo do WhatsApp para iniciar a sessão.
 
